@@ -24,6 +24,14 @@ export class Seat {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+    default: 'FOR_SALE',
+  })
+  seatState: string;
+
   @Column({ type: 'varchar', length: 255, nullable: false })
   seatInfo: string;
 

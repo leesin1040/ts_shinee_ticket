@@ -27,7 +27,7 @@ export class SeatController {
     return await this.seatService.getAllSeat();
   }
 
-  @Roles(Role.Business)
+  @Roles(Role.Admin, Role.Business, Role.User)
   @Get(':showId')
   async findByShowId(@Param('showId') showId: number) {
     return await this.seatService.findByShowId(showId);

@@ -24,8 +24,8 @@ export class Book {
   @JoinColumn({ name: 'pay_id' })
   payment: Payment;
 
-  @Column({ type: 'json', nullable: false })
-  seatId: any;
+  @Column({ type: 'int', nullable: false })
+  seatId: number;
 
   @Column({ type: 'json', nullable: false })
   booker: any;

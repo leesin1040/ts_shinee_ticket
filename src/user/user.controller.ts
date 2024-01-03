@@ -15,8 +15,8 @@ export class UserController {
   async register(@Body() registerDTO: RegisterDTO) {
     return await this.userService.register(
       registerDTO.email,
-      registerDTO.password,
       registerDTO.name,
+      registerDTO.password,
       registerDTO.phone,
     );
   }
