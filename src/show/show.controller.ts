@@ -36,7 +36,7 @@ export class ShowController {
 
   /** 공연 포스팅 */
   @UseGuards(RolesGuard)
-  @Roles()
+  @Roles(Role.Business)
   @Post()
   async showPost(@UserInfo() user: User, @Body() createShowDto: CreateShowDto) {
     return await this.showService.showPost(createShowDto, user);

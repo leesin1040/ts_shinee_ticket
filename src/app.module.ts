@@ -8,6 +8,10 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ShowModule } from './show/show.module';
 import { SeatModule } from './seat/seat.module';
+import { BookModule } from './book/book.module';
+import { TeamController } from './team/team.controller';
+import { PaymentService } from './payment/payment.service';
+import { PaymentModule } from './payment/payment.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -46,8 +50,10 @@ const typeOrmModuleOptions = {
     UserModule,
     ShowModule,
     SeatModule,
+    BookModule,
+    PaymentModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [TeamController],
+  providers: [PaymentService],
 })
 export class AppModule {}
