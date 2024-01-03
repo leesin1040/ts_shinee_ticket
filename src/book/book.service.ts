@@ -1,9 +1,9 @@
+import { updateSeatBooked } from './../seat/dto/seat.dto';
 import { CreateBookDto } from './dto/book.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from './entities/book.entity';
-import { userInfo } from 'os';
 import { User } from 'src/user/entities/user.entity';
 import { Seat } from 'src/seat/entities/seat.entity';
 
@@ -17,21 +17,35 @@ export class BookService {
   ) {}
 
   /**내 예매 목록 보기 */
-  async getMyBooks(userId:number):Promise<Book[]>{
-    return await this.bookRepository.find({relations:['user'], where :{user:{userId:userId}},select : {bookId:true, booker:true}})
+  async getMyBooks(userId: number): Promise<Book[]> {
+    return await this.bookRepository.find({
+      relations: ['user'],
+      where: { user: { userId: userId } },
+      select: { bookId: true, booker: true },
+    });
   }
   /**공연 ID로 예매하기 - 좌석은 직접 입력 */
-  async createBook(createBookDto:CreateBookDto, user:User){
-    const findSeat = await this.seatRepository.findOneBy({...createBookDto.seatId})
-    
-    if(!findSeat){
-      throw new BadRequestException('존재하지 않는 좌석입니다.')
+  async createBook(createBookDto: CreateBookDto, user: User) {
+    const findSeat = await this.seatRepository.findOneBy({
+      seatId: createBookDto.seatId,
+    });
+
+    if (!findSeat) {
+      throw new BadRequestException('존재하지 않는 좌석입니다.');
     }
-    if(findSeat.seatState==='SOLD_OUT'){
-      throw new BadRequestException('이미 판매된 좌석입니다.')
+    if (typeof findSeat.book === typeof Number) {
+      throw new BadRequestException('이미 판매된 좌석입니다.');
     }
-    await this.bookRepository.save(user,createBookDto)
+    const newBook = await this.bookRepository.save({
+      ...createBookDto,
+      user: user,
+    });
+
+    await this.seatRepository.update({
+      seatId: createBookDto.seatId,
+      bookId: newBook.bookId,
+    });
   }
   /**예약 취소하기 */
-  async deleteBook
+  // async deleteBook
 }

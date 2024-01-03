@@ -1,4 +1,5 @@
 import { Payment } from 'src/payment/entities/payment.entity';
+import { Seat } from 'src/seat/entities/seat.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
   Column,
@@ -16,19 +17,26 @@ export class Book {
   @PrimaryGeneratedColumn()
   bookId: number;
 
-  @ManyToOne(() => User, (user) => user.seats)
+  @ManyToOne(() => User, (user) => user.book)
   @JoinColumn({ name: 'user_id' })
   user: User;
+  @Column({ type: 'number', nullable: false })
+  user_id: number;
 
   @OneToOne(() => Payment, (payment) => payment.book, { nullable: true })
   @JoinColumn({ name: 'pay_id' })
   payment: Payment;
+  @Column({ type: 'number' })
+  pay_id: number;
 
-  @Column({ type: 'int', nullable: false })
-  seatId: number;
+  @OneToOne(() => Seat, (seat) => seat.book)
+  @JoinColumn({ name: 'seat_id' })
+  seat: number;
+  @Column({ type: 'number', nullable: false })
+  seat_id: number;
 
-  @Column({ type: 'json', nullable: false })
-  booker: any;
+  @Column({ type: 'varchar', nullable: false })
+  booker: string;
 
   @CreateDateColumn({ name: 'createdAt' })
   createdAt: Date;
