@@ -1,4 +1,3 @@
-import { updateSeatBooked } from './../seat/dto/seat.dto';
 import { CreateBookDto } from './dto/book.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -36,15 +35,19 @@ export class BookService {
     if (typeof findSeat.book === typeof Number) {
       throw new BadRequestException('이미 판매된 좌석입니다.');
     }
-    const newBook = await this.bookRepository.save({
-      ...createBookDto,
-      user: user,
-    });
 
-    await this.seatRepository.update({
-      seatId: createBookDto.seatId,
-      bookId: newBook.bookId,
+    const newBook = await this.bookRepository.save({
+      createBookDto,
+      user_id: user.userId,
+      seat_id: findSeat.seatId,
     });
+    console.log('아이디가져와');
+    await this.seatRepository.update(
+      {
+        seatId: createBookDto.seatId,
+      },
+      { book_id: newBook.bookId },
+    );
   }
   /**예약 취소하기 */
   // async deleteBook

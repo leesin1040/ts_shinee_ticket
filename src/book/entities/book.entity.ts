@@ -23,10 +23,10 @@ export class Book {
   @Column({ type: 'number', nullable: false })
   user_id: number;
 
-  @OneToOne(() => Payment, (payment) => payment.book, { nullable: true })
+  @OneToOne(() => Payment, (payment) => payment.book)
   @JoinColumn({ name: 'pay_id' })
   payment: Payment;
-  @Column({ type: 'number' })
+  @Column({ type: 'number', nullable: true })
   pay_id: number;
 
   @OneToOne(() => Seat, (seat) => seat.book)
