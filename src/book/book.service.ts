@@ -13,6 +13,8 @@ export class BookService {
     private readonly bookRepository: Repository<Book>,
     @InjectRepository(Seat)
     private readonly seatRepository: Repository<Seat>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   /**내 예매 목록 보기 */
@@ -41,11 +43,20 @@ export class BookService {
       user_id: user.userId,
       seat_id: findSeat.seatId,
     });
+    /**시트 레포지토리에서 예약Id 넣기 */
     await this.seatRepository.update(
       {
         seatId: createBookDto.seatId,
       },
       { book_id: newBook.bookId },
+    );
+    /**유저 레포지토리에서 포인트 차감하기 */
+    const findUserForPoint = await this.userRepository.findOneBy({
+      userId: user.userId,
+    });
+    await this.userRepository.update(
+      { userId: user.userId },
+      { point: findUserForPoint.point - findSeat.price },
     );
   }
   /**예약 취소하기 */
