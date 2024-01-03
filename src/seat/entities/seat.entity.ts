@@ -24,9 +24,6 @@ export class Seat {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column({ type: 'boolean', length: 255, nullable: false, default: false })
-  seatState: boolean;
-
   @Column({ type: 'varchar', length: 255, nullable: false })
   seatInfo: string;
 

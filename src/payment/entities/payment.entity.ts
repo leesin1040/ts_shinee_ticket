@@ -20,7 +20,7 @@ export class Payment {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToOne(() => Book, (book) => book.payment, { nullable: true }) // book 엔티티와의 ManyToOne 관계를 정의하며, nullable 옵션을 추가하여 비어 있을 수 있음을 명시합니다.
+  @OneToOne(() => Book, (book) => book.payment, { nullable: true })
   @JoinColumn({ name: 'bookId' })
   book: Book;
 

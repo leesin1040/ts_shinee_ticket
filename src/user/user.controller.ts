@@ -10,6 +10,7 @@ import { RegisterDTO } from './dto/register.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  /**회원가입 */
   @Post('register')
   async register(@Body() registerDTO: RegisterDTO) {
     return await this.userService.register(
@@ -20,11 +21,13 @@ export class UserController {
     );
   }
 
+  /**로그인 */
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
     return await this.userService.login(loginDto.email, loginDto.password);
   }
 
+  /**내 정보 조회 */
   @UseGuards(AuthGuard('jwt'))
   @Get('info')
   getInfo(@UserInfo() user: User) {

@@ -18,6 +18,7 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
+  /**회원가입 */
   async register(email: string, name: string, password: string, phone: string) {
     const existingUser = await this.findByEmail(email);
     if (existingUser) {
@@ -33,6 +34,7 @@ export class UserService {
     });
   }
 
+  /**로그인 */
   async login(email: string, password: string) {
     const hashedPassword = await hash(password, 10);
     const user = await this.userRepository.findOne({
@@ -52,6 +54,7 @@ export class UserService {
     };
   }
 
+  /**이메일로 정보 조회 */
   async findByEmail(email: string) {
     return await this.userRepository.findOneBy({ email });
   }

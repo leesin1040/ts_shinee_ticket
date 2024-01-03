@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { RolesGuard } from 'src/auth/role.guard';
@@ -24,6 +25,11 @@ export class ShowController {
   @Get()
   async findAll() {
     return await this.showService.findAll();
+  }
+
+  @Get('search')
+  async searchShow(@Query('keyword') keyword: string) {
+    return await this.showService.searchShow(keyword);
   }
 
   /** 공연 상세보기 */
