@@ -1,3 +1,5 @@
+# Insomnia_api_test.json 파일로 인섬니아에서 import 후 테스트 하실 수 있습니다.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -71,50 +73,3 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-
-## api명세
-
-| Catogory | Catogory     | Method | URL                      | Request Body                                                                                                                                                                                                                                                 | Response Headers | Response Body - 성공 | Response Body - 실패 | 비고     |
-| -------- | ------------ | ------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- | ------------------ | ------------------ | ------ |
-| user     | 회원가입         | POST   | /user/signup             | {
-"name":"테스트용",
-"email":"test@test.com",
-"password":"123123",
-"phone":"010-0000-0000"
-}                                                                                                                                                                     |                  |                    |                    | 완료     |
-| user     | 로그인          | POST   | /user/login              | {
-"email":"test@test.com",
-"password":"123123"
-}                                                                                                                                                                                                             |                  |                    |                    | 완료     |
-| user     | 기업등록         | POST   | /user/business           | 비즈니스                                                                                                                                                                                                                                                         | jwt token        |                    |                    | 완료     |
-| user     | 내 정보 조회      | GET    | /user/me                 |                                                                                                                                                                                                                                                              | jwt token        |                    |                    | 완료     |
-| user     | 회원탈퇴         | DELETE | /user/withdraw           |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-|          |              |        |                          |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-| show     | 콘서트 목록 조회    | GET    | /show                    | 비즈니스                                                                                                                                                                                                                                                         | jwt token        |                    |                    | 완료     |
-| show     | 콘서트 등록       | POST   | /show                    | {
-"showTitle": "2012 샤이니 월드",
-"showContent": "더 줘",
-"showDate": ["2012-07-21", "2012-07-22"],
-"showRunningTime": 120,
-"showPlace": "올림픽공원 체조경기장",
-"artists": ["온유", "태민","키", "민호","종현"],
-"showGenres": ["콘서트", "공연"],
-"showImg": ["이미지1.jpg", "이미지2.jpg"]
-} | jwt token        |                    |                    | 완료     |
-| show     | 콘서트 이름으로 검색  | GET    | /show/search?keyword=검색어 |                                                                                                                                                                                                                                                              |                  |                    |                    | 완료     |
-| show     | 콘서트 상세조회     | GET    | /show/:showId            |                                                                                                                                                                                                                                                              | jwt token        |                    |                    | 완료     |
-| show     | 콘서트 수정       | PATCH  | /show/:showId            |                                                                                                                                                                                                                                                              | jwt token        |                    |                    | 완료     |
-| show     | 콘서트 삭제       | DELETE | /show/:showId            |                                                                                                                                                                                                                                                              | jwt token        |                    |                    | 완료     |
-| review   | 리뷰 조회        | GET    | /show/:showId            |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-| review   | 리뷰 등록        | POST   | /review/:showId          |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-| review   | 리뷰 수정        | PATCH  | /review/:reviewId        |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-| review   | 리뷰 삭제        | DELETE | /review/:reviewId        |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-|          |              |        |                          |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-| seat     | 좌석 등록(기업)    | POST   | /seat/:showId            | 공연별 좌석등록 - csv 파일로 업로드                                                                                                                                                                                                                                       | jwt token        |                    |                    | 완료     |
-| seat     | 좌석 조회        | GET    | /seat/:showId            | 공연별 좌석조회                                                                                                                                                                                                                                                     | jwt token        |                    |                    | 완료     |
-| seat     | 좌석 삭제(기업)    | DELETE | /seat/:showId            | 전체 삭제                                                                                                                                                                                                                                                        | jwt token        |                    |                    | 완료     |
-|          |              |        |                          |                                                                                                                                                                                                                                                              |                  |                    |                    |        |
-| book     | (나의)모든 예매 조회 | GET    | /book/list               |                                                                                                                                                                                                                                                              | jwt token        |                    |                    | 필수     |
-| book     | 예매하기         | POST   | /book                    |                                                                                                                                                                                                                                                              | jwt token        |                    |                    | 필수-진행중 |
-| book     | 예매조회(개인)     | GET    | /book/:bookId            |                                                                                                                                                                                                                                                              | jwt token        |                    |                    | 필수     |
-| book     | 예매취소         | PATCH  | /book/:bookId            |                                                                                                                                                                                                                                                              | jwt token        |                    |                    |        |

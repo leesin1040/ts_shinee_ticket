@@ -1,4 +1,3 @@
-import { updateSeatBooked } from './../seat/dto/seat.dto';
 import { CreateBookDto } from './dto/book.dto';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,6 +13,8 @@ export class BookService {
     private readonly bookRepository: Repository<Book>,
     @InjectRepository(Seat)
     private readonly seatRepository: Repository<Seat>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   /**내 예매 목록 보기 */
@@ -36,15 +37,27 @@ export class BookService {
     if (typeof findSeat.book === typeof Number) {
       throw new BadRequestException('이미 판매된 좌석입니다.');
     }
-    const newBook = await this.bookRepository.save({
-      ...createBookDto,
-      user: user,
-    });
 
-    await this.seatRepository.update({
-      seatId: createBookDto.seatId,
-      bookId: newBook.bookId,
+    const newBook = await this.bookRepository.save({
+      createBookDto,
+      user_id: user.userId,
+      seat_id: findSeat.seatId,
     });
+    /**시트 레포지토리에서 예약Id 넣기 */
+    await this.seatRepository.update(
+      {
+        seatId: createBookDto.seatId,
+      },
+      { book_id: newBook.bookId },
+    );
+    /**유저 레포지토리에서 포인트 차감하기 */
+    const findUserForPoint = await this.userRepository.findOneBy({
+      userId: user.userId,
+    });
+    await this.userRepository.update(
+      { userId: user.userId },
+      { point: findUserForPoint.point - findSeat.price },
+    );
   }
   /**예약 취소하기 */
   // async deleteBook
