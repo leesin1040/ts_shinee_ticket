@@ -1,4 +1,5 @@
 import { Payment } from 'src/payment/entities/payment.entity';
+import { Seat } from 'src/seat/entities/seat.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
   Column,
@@ -16,7 +17,7 @@ export class Book {
   @PrimaryGeneratedColumn()
   bookId: number;
 
-  @ManyToOne(() => User, (user) => user.seats)
+  @ManyToOne(() => User, (user) => user.book)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
@@ -24,8 +25,9 @@ export class Book {
   @JoinColumn({ name: 'pay_id' })
   payment: Payment;
 
-  @Column({ type: 'int', nullable: false })
-  seatId: number;
+  @OneToOne(() => Seat, (seat) => seat.book, { nullable: false })
+  @JoinColumn({ name: 'seat_id' })
+  seat: number;
 
   @Column({ type: 'json', nullable: false })
   booker: any;

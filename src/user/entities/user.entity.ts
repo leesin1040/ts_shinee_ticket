@@ -11,6 +11,7 @@ import {
 
 import { Role } from '../types/userRole.type';
 import { Seat } from 'src/seat/entities/seat.entity';
+import { Book } from 'src/book/entities/book.entity';
 
 @Index('email', ['email'], { unique: true })
 @Entity({
@@ -59,4 +60,7 @@ export class User {
 
   @OneToMany(() => Show, (show) => show.user)
   show: Show;
+
+  @OneToMany(() => Book, (book) => book.user)
+  book: Book;
 }

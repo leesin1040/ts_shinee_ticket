@@ -1,3 +1,4 @@
+import { Book } from 'src/book/entities/book.entity';
 import { Show } from 'src/show/entities/show.entity';
 import { User } from 'src/user/entities/user.entity';
 
@@ -7,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -24,13 +26,9 @@ export class Seat {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column({
-    type: 'varchar',
-    length: 255,
-    nullable: false,
-    default: 'FOR_SALE',
-  })
-  seatState: string;
+  @OneToOne(() => Book, (book) => book.seat, { nullable: true })
+  @JoinColumn({ name: 'book_id' })
+  book: number;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   seatInfo: string;

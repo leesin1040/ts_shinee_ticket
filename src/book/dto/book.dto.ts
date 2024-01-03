@@ -1,9 +1,9 @@
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateBookDto {
-  @IsArray()
-  @IsString({ each: true })
-  seatId: string[];
+  @IsNumber()
+  @IsNotEmpty({ message: '좌석정보를 입력해주세요.' })
+  seatId: number;
 
   @IsArray()
   @IsString({ each: true })
