@@ -5,9 +5,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { User } from './user/entites/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ShowModule } from './show/show.module';
+import { SeatModule } from './seat/seat.module';
+import { BookModule } from './book/book.module';
+import { TeamController } from './team/team.controller';
+import { PaymentService } from './payment/payment.service';
+import { PaymentModule } from './payment/payment.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -20,7 +24,7 @@ const typeOrmModuleOptions = {
     host: configService.get('DB_HOST'),
     port: configService.get('DB_PORT'),
     database: configService.get('DB_NAME'),
-    entities: [User],
+    autoLoadEntities: true,
     synchronize: configService.get('DB_SYNC'),
     logging: true,
   }),
@@ -45,8 +49,11 @@ const typeOrmModuleOptions = {
     AuthModule,
     UserModule,
     ShowModule,
+    SeatModule,
+    BookModule,
+    PaymentModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [TeamController],
+  providers: [PaymentService],
 })
 export class AppModule {}

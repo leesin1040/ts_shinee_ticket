@@ -1,4 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Seat } from 'src/seat/entities/seat.entity';
+import { User } from 'src/user/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity({
   name: 'shows',
@@ -6,6 +17,10 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Show {
   @PrimaryGeneratedColumn()
   showId: number;
+
+  @ManyToOne(() => User, (user) => user.shows)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   showTitle: string;
@@ -22,7 +37,7 @@ export class Show {
   })
   showDate: string[];
 
-  @Column({ type: 'number', nullable: false })
+  @Column({ type: 'int', nullable: false })
   showRunningTime: number;
 
   @Column({ type: 'varchar', nullable: false })
@@ -55,6 +70,15 @@ export class Show {
   })
   showImg: string[];
 
+  @OneToMany(() => Seat, (seat) => seat.show)
+  seats: Seat[];
+
   @Column({ type: 'boolean', nullable: false, default: false })
   approved: boolean;
+
+  @CreateDateColumn({ name: 'createdAt' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updatedAt' })
+  updatedAt: Date;
 }
