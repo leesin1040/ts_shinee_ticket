@@ -81,7 +81,7 @@ export class ShowService {
     await this.showRepository.delete({ showId });
   }
 
-  /**아이디로 공연 찾기고 작성자 확인 */
+  /**아이디로 공연 찾고 작성자 확인 */
   private async verifyShowById(user: User, showId: number) {
     const shows = await this.showRepository.find({
       where: { showId: showId },

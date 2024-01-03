@@ -21,14 +21,20 @@ export class Seat {
   @ManyToOne(() => Show, (show) => show.seats)
   @JoinColumn({ name: 'show_id' })
   show: Show;
+  @Column({ type: 'number', nullable: false })
+  show_id: number;
 
   @ManyToOne(() => User, (user) => user.seats)
   @JoinColumn({ name: 'user_id' })
   user: User;
+  @Column({ type: 'number', nullable: false })
+  user_id: number;
 
-  @OneToOne(() => Book, (book) => book.seat, { nullable: true })
+  @OneToOne(() => Book, (book) => book.seat)
   @JoinColumn({ name: 'book_id' })
   book: number;
+  @Column({ type: 'number', nullable: true })
+  book_id: number;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   seatInfo: string;

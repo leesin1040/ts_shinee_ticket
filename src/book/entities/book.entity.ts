@@ -20,17 +20,23 @@ export class Book {
   @ManyToOne(() => User, (user) => user.book)
   @JoinColumn({ name: 'user_id' })
   user: User;
+  @Column({ type: 'number', nullable: false })
+  user_id: number;
 
   @OneToOne(() => Payment, (payment) => payment.book, { nullable: true })
   @JoinColumn({ name: 'pay_id' })
   payment: Payment;
+  @Column({ type: 'number' })
+  pay_id: number;
 
-  @OneToOne(() => Seat, (seat) => seat.book, { nullable: false })
+  @OneToOne(() => Seat, (seat) => seat.book)
   @JoinColumn({ name: 'seat_id' })
   seat: number;
+  @Column({ type: 'number', nullable: false })
+  seat_id: number;
 
-  @Column({ type: 'json', nullable: false })
-  booker: any;
+  @Column({ type: 'varchar', nullable: false })
+  booker: string;
 
   @CreateDateColumn({ name: 'createdAt' })
   createdAt: Date;

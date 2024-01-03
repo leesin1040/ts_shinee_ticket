@@ -24,7 +24,7 @@ export class SeatService {
     return await this.seatRepository.find({
       relations: ['show'],
       where: { show: { showId: showId } },
-      select: { seatInfo: true, seatState: true, seatId: true },
+      select: { seatInfo: true, seatId: true },
     });
   }
 

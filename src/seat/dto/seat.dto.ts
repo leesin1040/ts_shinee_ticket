@@ -9,3 +9,9 @@ export class createSeatDto {
   @IsNotEmpty({ message: '좌석 가격을 입력해 주세요' })
   price: number;
 }
+
+export class updateSeatBooked {
+  @IsNumber()
+  @IsNotEmpty({ message: '좀 되봐' })
+  book_id: number;
+}
