@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserInfo } from 'src/utils/userInfo.decorator';
-import { User } from './entites/user.entity';
+import { User } from './entities/user.entity';
 import { RegisterDTO } from './dto/register.dto';
 
 @Controller('user')
@@ -16,6 +16,7 @@ export class UserController {
       registerDTO.email,
       registerDTO.password,
       registerDTO.name,
+      registerDTO.phone,
     );
   }
 
@@ -25,8 +26,8 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('email')
-  getEmail(@UserInfo() user: User) {
-    return { email: user.email };
+  @Get('info')
+  getInfo(@UserInfo() user: User) {
+    return { user: user };
   }
 }

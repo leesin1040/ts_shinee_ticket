@@ -12,4 +12,8 @@ export class RegisterDTO {
   @IsString()
   @IsNotEmpty({ message: '이름을 입력해주세요.' })
   name: string;
+
+  @IsString()
+  @IsNotEmpty({ message: '연락처를 입력해주세요.' })
+  phone: string;
 }
