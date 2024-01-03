@@ -41,7 +41,6 @@ export class BookService {
       user_id: user.userId,
       seat_id: findSeat.seatId,
     });
-    console.log('아이디가져와');
     await this.seatRepository.update(
       {
         seatId: createBookDto.seatId,
