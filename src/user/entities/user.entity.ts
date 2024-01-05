@@ -56,7 +56,6 @@ export class User {
 
   @UpdateDateColumn({ name: 'updatedAt' })
   updatedAt: Date;
-  shows: any;
 
   @OneToMany(() => Show, (show) => show.user)
   show: Show;
